@@ -17,9 +17,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données :  `br3`
+-- create database BR4;
 --
-
 -- --------------------------------------------------------
 
 --
@@ -37,8 +36,8 @@ CREATE TABLE IF NOT EXISTS `administrator` (
 -- Contenu de la table `administrator`
 --
 
-INSERT INTO `administrator` (`userId`, `adminName`, `adminEmail`) VALUES
-(1, 'admin1', 'me.mr@gmail.com');
+INSERT INTO `administrator` ( `adminName`, `adminEmail`) VALUES
+('admin1', 'me.mr@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -60,9 +59,9 @@ CREATE TABLE IF NOT EXISTS `customer` (
 -- Contenu de la table `customer`
 --
 
-INSERT INTO `customer` (`userId`, `costumerName`, `costumerEmail`, `creditCardInfo`, `shippingInfo`, `accountBalance`) VALUES
-(1, 'amine', 'email@email.com', 'aaaaaaaaaaaaaaaaaaaaaaaaaaa', 'info1', 55555),
-(2, 'amine2', 'email@email.com', 'aaaaaaaaaaaaaaaaaaaaa', 'info2', 555);
+INSERT INTO `customer` ( `costumerName`, `costumerEmail`, `creditCardInfo`, `shippingInfo`, `accountBalance`) VALUES
+( 'amine', 'email@email.com', 'aaaaaaaaaaaaaaaaaaaaaaaaaaa', 'info1', 55555),
+( 'amine2', 'email@email.com', 'aaaaaaaaaaaaaaaaaaaaa', 'info2', 555);
 
 -- --------------------------------------------------------
 
@@ -85,8 +84,8 @@ CREATE TABLE IF NOT EXISTS `orderdetails` (
 -- Contenu de la table `orderdetails`
 --
 
-INSERT INTO `orderdetails` (`orderDetailsId`, `productId`, `orderId`, `productName`, `quantity`, `unitCost`, `subTotal`) VALUES
-(1, 1, 1, 'tv FITCO', 5, 1000, 20000000);
+INSERT INTO `orderdetails` ( `productId`, `orderId`, `productName`, `quantity`, `unitCost`, `subTotal`) VALUES
+( 1, 1, 'tv FITCO', 5, 1000, 20000000);
 
 -- --------------------------------------------------------
 
@@ -107,8 +106,8 @@ CREATE TABLE IF NOT EXISTS `shippinginfo` (
 -- Contenu de la table `shippinginfo`
 --
 
-INSERT INTO `shippinginfo` (`shippingId`, `orderId`, `shippingType`, `shippingCost`, `shippingRegionId`) VALUES
-(2, 1, 'SSSSS', 3, 4);
+INSERT INTO `shippinginfo` ( `orderId`, `shippingType`, `shippingCost`, `shippingRegionId`) VALUES
+( 1, 'SSSSS', 3, 4);
 
 -- --------------------------------------------------------
 
@@ -127,8 +126,34 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Contenu de la table `user`
 --
 
-INSERT INTO `user` (`userId`, `password`, `loginStatus`) VALUES
-(1, '1234', 'user');
+INSERT INTO `user` ( `password`, `loginStatus`) VALUES
+('1234', 'user');
+UPDATE `br3`.`administrator` SET `adminName` = 'admin1' WHERE `administrator`.`userId` = 1;
+DELETE FROM `administrator` WHERE userId=3;
+
+
+UPDATE `br3`.`customer` SET `creditCardInfo` = 'aaaaaaaaaaaaaaaaaaaaa' WHERE `customer`.`userId` = 2;
+DELETE FROM `customer` WHERE userId=3;
+
+UPDATE `br3`.`orderdetails` SET `productName` = 'tv FITCO' WHERE `orderdetails`.`orderDetailsId` = 1;
+DELETE FROM `orderdetails` WHERE orderDetailsId=2;
+
+
+UPDATE `br3`.`shippinginfo` SET `shippingRegionId` = '4' WHERE `shippinginfo`.`shippingId` = 2;
+DELETE FROM `shippinginfo` WHERE shippingId=1;
+
+
+UPDATE `br3`.`user` SET `password` = '12345' WHERE `user`.`userId` = 2;
+DELETE FROM `user` WHERE userId=2;
+
+
+
+CREATE USER 'mahmoud'@'localhost' IDENTIFIED BY '123';
+GRANT ALL PRIVILEGES ON * . * TO 'mahmoud'@'localhost';
+GRANT CREATE, SELECT ON * . * TO 'mahmoud'@'localhost';
+
+
+/* revoquer toutes les privileges */
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
